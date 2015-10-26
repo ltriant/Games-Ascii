@@ -28,22 +28,47 @@ sub objects {
 	return ($self->player1, $self->player2, $self->ball);
 }
 
+# TODO Pong::Controller?
+{
+	use Term::ReadKey;
+	my @buffer;
+
+	sub process_input {
+		my ($self) = @_;
+
+		ReadMode 'cbreak';
+
+		while (my $key = ReadKey -1) {
+			push @buffer => $key
+		}
+
+		ReadMode 'restore';
+
+		while (@buffer) {
+			my $key = shift @buffer;
+			for ($self->objects) {
+				$_->receive($self, { key => $key });
+			}
+		}
+	}
+}
+
 sub loop {
 	my ($self) = @_;
 
 	while (1) {
 		print "Loop\n";
 
-		$self->player1->update($self, $self->player1);
-		$self->player2->update($self, $self->player2);
-		$self->ball->update($self);
+		$self->process_input;
+
+		$_->update($self, $_) for $self->objects;
 
 		printf "  p1: %.2f, %.2f\n", @{ $self->player1->position };
-		printf "  p2: %.2f, %.2f\n", @{ $self->player2->position };
-		printf "  b:  %.2f, %.2f, %s%s\n", @{ $self->ball->position }, reverse @{ $self->ball->direction };
+#		printf "  p2: %.2f, %.2f\n", @{ $self->player2->position };
+#		printf "  b:  %.2f, %.2f, %s%s\n", @{ $self->ball->position }, reverse @{ $self->ball->direction };
 
 		#usleep(10000);
-		usleep(100000);
+		usleep(1000000);
 	}
 }
 
