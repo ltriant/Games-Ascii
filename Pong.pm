@@ -20,7 +20,7 @@ declare 'Velocity' =>
 	as Num;
 
 class_type 'InputComponent' =>
-	{ class => 'Pong::Component' };
+	{ class => 'Pong::Component::Input' };
 
 class_type 'PhysicsComponent' =>
 	{ class => 'Pong::Component::Physics' };

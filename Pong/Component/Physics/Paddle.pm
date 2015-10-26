@@ -9,13 +9,13 @@ sub update {
 	my ($x, $y) = @{ $paddle->position };
 	my ($w, $h) = @{ $paddle->size };
 
-	if (($x <= 0) and ($paddle->velocity < 0)) {
-		# do nothing
+	my $v = $paddle->velocity;
+
+	if ($x + $v < 0) {
+		$paddle->position->[0] = 0;
 	}
-	elsif (    ($x + $w >= $game->size->[0])
-		and ($paddle->velocity > 0))
-	{
-		# do nothing
+	elsif ($x + $w + $v >= $game->size->[0]) {
+		$paddle->position->[0] = $game->size->[0] - $w;
 	}
 	else {
 		$paddle->position->[0] += $paddle->velocity;
