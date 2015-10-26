@@ -3,6 +3,7 @@ package Pong::Game;
 use Moo;
 use Pong qw/Paddle Ball Size/;
 
+use Term::ReadKey;
 use Time::HiRes qw/usleep/;
 
 has player1 => (is => 'ro', isa => Paddle);
@@ -28,29 +29,21 @@ sub objects {
 	return ($self->player1, $self->player2, $self->ball);
 }
 
-# TODO Pong::Controller?
-{
-	use Term::ReadKey;
+# TODO Should this be in its own class?
+# Event queue?
+sub process_input {
+	my ($self) = @_;
+
 	my @buffer;
+	ReadMode 'cbreak';
 
-	sub process_input {
-		my ($self) = @_;
-
-		ReadMode 'cbreak';
-
-		while (my $key = ReadKey -1) {
-			push @buffer => $key
-		}
-
-		ReadMode 'restore';
-
-		while (@buffer) {
-			my $key = shift @buffer;
-			for ($self->objects) {
-				$_->receive($self, { key => $key });
-			}
-		}
+	while (my $key = ReadKey -1) {
+		push @buffer => $key
 	}
+
+	ReadMode 'restore';
+
+	@buffer
 }
 
 sub loop {
@@ -59,7 +52,12 @@ sub loop {
 	while (1) {
 		print "Loop\n";
 
-		$self->process_input;
+		# TODO cleaner way to do this?
+		foreach my $key ($self->receive_input) {
+			for ($self->objects) {
+				$_->receive($self, { key => $key });
+			}
+		}
 
 		$_->update($self, $_) for $self->objects;
 
