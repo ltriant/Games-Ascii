@@ -4,9 +4,7 @@ use Moo;
 extends 'Pong::Component::Physics';
 
 sub update {
-	my ($self, $game) = @_;
-
-	my $ball = $game->ball;
+	my ($self, $game, $ball) = @_;
 
 	my ($x, $y) = @{ $ball->position };
 	my ($ew, $ns) = @{ $ball->direction };
