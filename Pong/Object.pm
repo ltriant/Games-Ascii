@@ -23,8 +23,8 @@ has graphics  => (is => 'ro', isa => GraphicsComponent);
 sub receive {
 	my ($self, $game, $message) = @_;
 
-	if (exists $message->{key} and $self->input) {
-		$self->input->update($self, $message->{key});
+	if (exists $message->{input} and $self->input) {
+		$self->input->update($self, $message->{input});
 	}
 }
 

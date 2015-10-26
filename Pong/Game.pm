@@ -46,19 +46,18 @@ sub process_input {
 	@buffer
 }
 
+sub broadcast {
+	my ($self, $message) = @_;
+	$_->receive($self, $message) for $self->objects;
+}
+
 sub loop {
 	my ($self) = @_;
 
 	while (1) {
 		print "Loop\n";
 
-		# TODO cleaner way to do this?
-		foreach my $key ($self->receive_input) {
-			for ($self->objects) {
-				$_->receive($self, { key => $key });
-			}
-		}
-
+		$self->broadcast( { input => $_ } ) for $self->receive_input;
 		$_->update($self, $_) for $self->objects;
 
 		printf "  p1: %.2f, %.2f\n", @{ $self->player1->position };
