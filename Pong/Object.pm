@@ -20,10 +20,17 @@ has input     => (is => 'ro', isa => InputComponent);
 has physics   => (is => 'ro', isa => PhysicsComponent);
 has graphics  => (is => 'ro', isa => GraphicsComponent);
 
+sub receive {
+	my ($self, $game, $message) = @_;
+
+	if (exists $message->{key} and $self->input) {
+		$self->input->update($game, $self, $message->{key});
+	}
+}
+
 sub update {
 	my ($self, @rest) = @_;
 
-	$self->input->update(@rest)    if $self->input;
 	$self->physics->update(@rest)  if $self->physics;
 	$self->graphics->update(@rest) if $self->graphics;
 }
