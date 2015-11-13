@@ -18,7 +18,7 @@ sub BUILD {
 	$self->player2->position( [ 0, 1 ] );
 
 	if ($self->ball) {
-		$self->ball->position( [ 4, 4 ] );
+		$self->ball->position( [ 2, 7 ] );
 		$self->ball->direction( [ qw(W N) ] );
 		$self->ball->velocity(0.1);
 	}
@@ -31,7 +31,7 @@ sub objects {
 
 # TODO Should this be in its own class?
 # Event queue?
-sub process_input {
+sub receive_input {
 	my ($self) = @_;
 
 	my @buffer;
@@ -61,8 +61,8 @@ sub loop {
 		$_->update($self, $_) for $self->objects;
 
 		printf "  p1: %.2f, %.2f\n", @{ $self->player1->position };
-#		printf "  p2: %.2f, %.2f\n", @{ $self->player2->position };
-#		printf "  b:  %.2f, %.2f, %s%s\n", @{ $self->ball->position }, reverse @{ $self->ball->direction };
+		printf "  p2: %.2f, %.2f\n", @{ $self->player2->position };
+		printf "  b:  %.2f, %.2f, %s%s\n", @{ $self->ball->position }, reverse @{ $self->ball->direction };
 
 		#usleep(10000);
 		usleep(1000000);
