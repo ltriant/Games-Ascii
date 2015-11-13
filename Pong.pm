@@ -2,7 +2,10 @@ package Pong;
 
 use Type::Library -base;
 use Type::Utils -all;
-use Types::Standard qw/Tuple Int Enum Num/;
+use Types::Standard qw/Tuple Int Enum Num StrMatch/;
+
+declare 'KeyboardChar' =>
+	as StrMatch[ qr{^[a-zA-Z]$} ];
 
 declare 'Position' =>
 	as Tuple[Int, Int];

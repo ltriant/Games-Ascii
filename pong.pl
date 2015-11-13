@@ -11,10 +11,17 @@ use Pong::Component::Input::Keyboard;
 
 my $game = Pong::Game->new(
 	size    => [ 10, 10 ],
-	player1 => Pong::Object::Paddle->new(
-		input => Pong::Component::Input::Keyboard->new),
-	player2 => Pong::Object::Paddle->new,
 	ball    => Pong::Object::Ball->new,
+	player1 => Pong::Object::Paddle->new(
+		input => Pong::Component::Input::Keyboard->new(
+			left  => 'A',
+			right => 'S'
+		)),
+	player2 => Pong::Object::Paddle->new(
+		input => Pong::Component::Input::Keyboard->new(
+			left  => 'K',
+			right => 'L'
+		)),
 );
 
 $game->loop;
