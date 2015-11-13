@@ -24,7 +24,7 @@ sub receive {
 	my ($self, $game, $message) = @_;
 
 	if (exists $message->{input} and $self->input) {
-		$self->input->update($self, $message->{input});
+		$self->input->update($game, $self, $message->{input});
 	}
 }
 
