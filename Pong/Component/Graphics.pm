@@ -1,8 +1,9 @@
 package Pong::Component::Graphics;
 
-use Moo;
+use Moo::Role;
 use Pong::Utils qw(round);
-extends 'Pong::Component';
+
+requires 'draw';
 
 sub clear {
 	my ($self, $object, $win) = @_;
@@ -14,9 +15,9 @@ sub clear {
 	$win->refresh;
 }
 
-sub update {
+before draw => sub {
 	my ($self, undef, $object, $win) = @_;
 	$self->clear($object, $win);
-}
+};
 
 1;

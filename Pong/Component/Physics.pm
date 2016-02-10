@@ -1,6 +1,7 @@
 package Pong::Component::Physics;
 
-use Moo;
-extends 'Pong::Component';
+use Moo::Role;
+
+requires 'move';
 
 1;
