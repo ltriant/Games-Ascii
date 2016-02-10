@@ -1,6 +1,7 @@
 package Pong::Object;
 
 use Moo;
+use Types::Standard qw/Maybe/;
 use Pong qw(
 	Size
 	Position
@@ -16,9 +17,9 @@ has position  => (is => 'rw', isa => Position);
 has direction => (is => 'rw', isa => Direction);
 has velocity  => (is => 'rw', isa => Velocity);
 
-has input     => (is => 'ro', isa => InputComponent);
-has physics   => (is => 'ro', isa => PhysicsComponent);
-has graphics  => (is => 'ro', isa => GraphicsComponent);
+has input     => (is => 'ro', isa => Maybe[InputComponent]);
+has physics   => (is => 'ro', isa => Maybe[PhysicsComponent]);
+has graphics  => (is => 'ro', isa => Maybe[GraphicsComponent]);
 
 sub receive {
 	my ($self, $game, $message) = @_;
@@ -29,10 +30,11 @@ sub receive {
 }
 
 sub update {
-	my ($self, @rest) = @_;
+	my ($self, $game, $object, $win) = @_;
 
-	$self->physics->update(@rest)  if $self->physics;
-	$self->graphics->update(@rest) if $self->graphics;
+	$self->graphics->clear($object, $win)         if $self->graphics;
+	$self->physics->update($game, $object, $win)  if $self->physics;
+	$self->graphics->update($game, $object, $win) if $self->graphics;
 }
 
 1;
