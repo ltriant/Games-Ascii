@@ -1,5 +1,8 @@
 package Pong;
 
+use warnings;
+use strict;
+
 use Type::Library -base;
 use Type::Utils -all;
 use Types::Standard qw/Tuple Int Enum Num StrMatch/;
