@@ -7,10 +7,10 @@ use Curses;
 use Term::ReadKey;
 use Time::HiRes qw/usleep/;
 
-has player1 => (is => 'ro', isa => Paddle);
-has player2 => (is => 'ro', isa => Paddle);
-has ball    => (is => 'ro', isa => Ball);
-has size    => (is => 'ro', isa => Size);
+has player1 => (is => 'ro', isa => Paddle, required => 1);
+has player2 => (is => 'ro', isa => Paddle, required => 1);
+has ball    => (is => 'ro', isa => Ball,   required => 1);
+has size    => (is => 'ro', isa => Size,   required => 1);
 
 sub BUILD {
 	my ($self) = @_;
@@ -18,11 +18,9 @@ sub BUILD {
 	$self->player1->position( [ 0, 8 ] );
 	$self->player2->position( [ 0, 1 ] );
 
-	if ($self->ball) {
-		$self->ball->position( [ 2, 7 ] );
-		$self->ball->direction( [ qw(W N) ] );
-		$self->ball->velocity(0.1);
-	}
+	$self->ball->position( [ 2, 7 ] );
+	$self->ball->direction( [ qw(W N) ] );
+	$self->ball->velocity(0.1);
 }
 
 sub objects {
