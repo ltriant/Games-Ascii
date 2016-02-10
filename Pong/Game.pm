@@ -3,6 +3,7 @@ package Pong::Game;
 use Moo;
 use Pong qw/Paddle Ball Size/;
 
+use Curses;
 use Term::ReadKey;
 use Time::HiRes qw/usleep/;
 
@@ -54,18 +55,20 @@ sub broadcast {
 sub loop {
 	my ($self) = @_;
 
+	my $win = Curses->new;
+
 	while (1) {
-		print "Loop\n";
+#		print "Loop\n";
 
 		$self->broadcast( { input => $_ } ) for $self->receive_input;
-		$_->update($self, $_) for $self->objects;
+		$_->update($self, $_, $win) for $self->objects;
 
-		printf "  p1: %.2f, %.2f\n", @{ $self->player1->position };
-		printf "  p2: %.2f, %.2f\n", @{ $self->player2->position };
-		printf "  b:  %.2f, %.2f, %s%s\n", @{ $self->ball->position }, reverse @{ $self->ball->direction };
+#		printf "  p1: %.2f, %.2f\n", @{ $self->player1->position };
+#		printf "  p2: %.2f, %.2f\n", @{ $self->player2->position };
+#		printf "  b:  %.2f, %.2f, %s%s\n", @{ $self->ball->position }, reverse @{ $self->ball->direction };
 
-		#usleep(10000);
-		usleep(1000000);
+		usleep(10000);
+		#usleep(1000000);
 	}
 }
 

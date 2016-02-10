@@ -23,10 +23,10 @@ sub update {
 			and ($ny >= $oy)
 			and ($ny <= $oy + $sz_y)
 		) {
-			printf "  Hitting a %s object!\n", ref $obj;
-			printf "    ox, oy: %d, %d\n", $ox, $oy;
-			printf "    sz_x, sz_y: %d, %d\n", $sz_x, $sz_y;
-			printf "    Old direction: %s%s\n", $ns, $ew;
+#			printf "  Hitting a %s object!\n", ref $obj;
+#			printf "    ox, oy: %d, %d\n", $ox, $oy;
+#			printf "    sz_x, sz_y: %d, %d\n", $sz_x, $sz_y;
+#			printf "    Old direction: %s%s\n", $ns, $ew;
 
 			if ($ns eq 'N') {
 				$ns = $ball->direction->[1] = 'S';
@@ -35,7 +35,7 @@ sub update {
 				$ns = $ball->direction->[1] = 'N';
 			}
 
-			printf "    New direction: %s%s\n", $ns, $ew;
+#			printf "    New direction: %s%s\n", $ns, $ew;
 		}
 	}
 
