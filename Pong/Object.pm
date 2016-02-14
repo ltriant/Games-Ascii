@@ -3,18 +3,27 @@ package Pong::Object;
 use Moo;
 use Types::Standard qw/Maybe/;
 use Pong qw(
-	Size
-	Position
 	Direction
 	Velocity
 	InputComponent
 );
 
-has size      => (is => 'rw', isa => Size);
-has position  => (is => 'rw', isa => Position);
-has direction => (is => 'rw', isa => Direction);
-has velocity  => (is => 'rw', isa => Velocity);
-has input     => (is => 'ro', isa => Maybe[InputComponent]);
+with qw(
+	Pong::Component::Physics
+	Pong::Component::Graphics
+);
+
+has direction => (
+	is  => 'rw',
+	isa => Direction
+);
+has input => (
+	is  => 'ro',
+	isa => Maybe[InputComponent]
+);
+
+sub move { }
+sub draw { }
 
 sub receive {
 	my ($self, $game, $message) = @_;

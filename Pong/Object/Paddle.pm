@@ -2,10 +2,6 @@ package Pong::Object::Paddle;
 
 use Moo;
 extends 'Pong::Object';
-with qw(
-	Pong::Component::Physics
-	Pong::Component::Graphics
-);
 
 use Pong::Utils qw(round);
 

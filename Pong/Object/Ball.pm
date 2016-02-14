@@ -2,11 +2,6 @@ package Pong::Object::Ball;
 
 use Moo;
 extends 'Pong::Object';
-with qw(
-	Pong::Component::Physics
-	Pong::Component::Graphics
-);
-
 use Pong::Utils qw(round);
 
 has '+size' => (default => sub { [ qw/1 1/ ] } );
