@@ -2,21 +2,13 @@ package Pong::Object;
 
 use Moo;
 use Types::Standard qw/Maybe/;
-use Pong qw(
-	Direction
-	Velocity
-	InputComponent
-);
+use Pong qw(InputComponent);
 
 with qw(
 	Pong::Component::Physics
 	Pong::Component::Graphics
 );
 
-has direction => (
-	is  => 'rw',
-	isa => Direction
-);
 has input => (
 	is  => 'ro',
 	isa => Maybe[InputComponent]
