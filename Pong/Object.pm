@@ -36,9 +36,9 @@ sub receive {
 sub update {
 	my ($self, $game, $object, $win) = @_;
 
-	$self->clear($object, $win)       if $self->can('clear');
-	$self->move($game, $object, $win) if $self->can('move');
-	$self->draw($game, $object, $win) if $self->can('draw');
+	$self->clear($object, $win);
+	$self->move($game, $object, $win);
+	$self->draw($game, $object, $win);
 }
 
 1;
