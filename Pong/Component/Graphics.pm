@@ -15,9 +15,4 @@ sub clear {
 	$win->refresh;
 }
 
-before draw => sub {
-	my ($self, undef, $object, $win) = @_;
-	$self->clear($object, $win);
-};
-
 1;
