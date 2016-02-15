@@ -20,7 +20,7 @@ sub BUILD {
 
 	$self->ball->position( [ 2, 7 ] );
 	$self->ball->direction( [ qw(W N) ] );
-	$self->ball->velocity(0.1);
+	$self->ball->velocity(0.05);
 }
 
 sub objects {
