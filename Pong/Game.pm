@@ -8,8 +8,6 @@ use Curses;
 use Term::ReadKey;
 use Time::HiRes qw/usleep/;
 
-with 'Pong::Component::Observer';
-
 has player1 => ( is => 'ro', isa => Paddle, required => 1 );
 has player2 => ( is => 'ro', isa => Paddle, required => 1 );
 has ball    => ( is => 'ro', isa => Ball,   required => 1 );
@@ -30,7 +28,7 @@ sub BUILD {
 	$self->ball->position( [ 2, 7 ] );
 	$self->ball->direction( [ qw(W N) ] );
 	$self->ball->velocity(0.05);
-	$self->ball->push_observer($self);
+	$self->ball->push_observer(\&on_notify, $self);
 
 	$self->_objects( [ $self->player1, $self->player2, $self->ball ] );
 }
@@ -39,6 +37,7 @@ sub on_notify {
 	my ($self, $message) = @_;
 
 	if (my $obj = $message->{score}) {
+		#$self->_window->addstr(0, 0, "$message->{score}");
 		# TODO player scored
 	}
 }
