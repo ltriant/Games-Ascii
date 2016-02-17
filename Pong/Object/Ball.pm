@@ -1,8 +1,10 @@
 package Pong::Object::Ball;
 
 use Moo;
-extends 'Pong::Object';
 use Pong::Utils qw(round);
+
+extends 'Pong::Object';
+with 'Pong::Component::Observable';
 
 has '+size' => (default => sub { [ qw/1 1/ ] } );
 
@@ -15,9 +17,7 @@ sub move {
 
 	my ($nx, $ny) = ($x + $v, $y + $v);
 
-	foreach my $obj ($game->objects) {
-		next if $obj eq $ball;
-
+	foreach my $obj ($game->player1, $game->player2) {
 		my ($ox, $oy) = @{ $obj->position };
 		my ($sz_x, $sz_y) = @{ $obj->size };
 
@@ -45,9 +45,11 @@ sub move {
 	# Hitting a wall? Change direction.
 	if (($y <= 0) and ($ns eq 'S')) {
 		$ns = $ball->direction->[1] = 'N';
+		$self->notify( { score => $game->player2 } );
 	}
 	if (($y >= $game->size->[1]) and ($ns eq 'N')) {
 		$ns = $ball->direction->[1] = 'S';
+		$self->notify( { score => $game->player1 } );
 	}
 
 	if (($x <= 0) and ($ew eq 'W')) {

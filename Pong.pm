@@ -28,10 +28,16 @@ declare 'Velocity' =>
 class_type 'InputComponent' =>
 	{ class => 'Pong::Component::Input' };
 
+class_type 'Object' =>
+	{ class => 'Pong::Object' };
+
 class_type 'Paddle' =>
 	{ class => 'Pong::Object::Paddle' };
 
 class_type 'Ball' =>
 	{ class => 'Pong::Object::Ball' };
+
+role_type 'Observer' =>
+	{ role => 'Pong::Component::Observer' };
 
 1;
