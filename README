@@ -1,0 +1,25 @@
+A curses-based Pong clone.
+
+Mostly to experiment with design patterns for the game engine from the Game
+Programming Patterns book.
+
+HOW TO PLAY
+-----------
+
+Player 1:
+  A -- left
+  S -- right
+
+Player 2:
+  K -- left
+  L -- right
+
+Q to quit.
+
+LICENSE
+-------
+
+"THE BEER-WARE LICENSE" (Revision 43) borrowed from FreeBSD's jail.c
+<ltriant@cpan.org> wrote this file.  As long as you retain this notice you
+can do whatever you want with this stuff. If we meet some day, and you think
+this stuff is worth it, you can buy me a beer in return.   Luke Triantafyllidis
