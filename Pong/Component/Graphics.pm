@@ -6,13 +6,13 @@ use Pong::Utils qw(round);
 requires 'draw';
 
 sub clear {
-	my ($self, $object, $win) = @_;
+	my ($self, $game, $object, $win) = @_;
 
 	my ($x, $y) = map round, @{ $object->position };
 	my ($w, $h) = @{ $object->size };
+	my ($gw, $gh) = @{ $game->size };
 
-	$win->addstr($y, $x * 1, " " x ($w * 1));
-	$win->refresh;
+	$win->hline($gh - $y, $x, ' ', $w);
 }
 
 1;

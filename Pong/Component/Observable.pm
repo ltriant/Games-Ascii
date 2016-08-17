@@ -1,10 +1,11 @@
 package Pong::Component::Observable;
 
 use Moo::Role;
-use Types::Standard qw/ArrayRef CodeRef/;
+use Types::Standard qw/ArrayRef Any/;
 
 has observers => (
 	is      => 'rw',
+	isa     => ArrayRef[Any],
 	default => sub { [] }
 );
 

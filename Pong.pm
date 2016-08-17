@@ -5,7 +5,7 @@ use strict;
 
 use Type::Library -base;
 use Type::Utils -all;
-use Types::Standard qw/Tuple Int Enum Num StrMatch/;
+use Types::Standard qw/Tuple Int Enum Num StrMatch HashRef/;
 
 declare 'KeyboardChar' =>
 	as StrMatch[ qr{^[a-zA-Z]$} ];
@@ -24,6 +24,9 @@ declare 'Direction' =>
 
 declare 'Velocity' =>
 	as Num;
+
+declare 'Scoreboard' =>
+	as HashRef[Int];
 
 class_type 'InputComponent' =>
 	{ class => 'Pong::Component::Input' };

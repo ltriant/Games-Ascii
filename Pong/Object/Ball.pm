@@ -43,13 +43,13 @@ sub move {
 	}
 
 	# Hitting a wall? Change direction.
-	if (($y <= 0) and ($ns eq 'S')) {
-		$ns = $ball->direction->[1] = 'N';
-		$self->notify( { score => $game->player2 } );
-	}
-	if (($y >= $game->size->[1]) and ($ns eq 'N')) {
+	if (($y <= 0) and ($ns eq 'N')) {
 		$ns = $ball->direction->[1] = 'S';
 		$self->notify( { score => $game->player1 } );
+	}
+	if (($y >= $game->size->[1]) and ($ns eq 'S')) {
+		$ns = $ball->direction->[1] = 'N';
+		$self->notify( { score => $game->player2 } );
 	}
 
 	if (($x <= 0) and ($ew eq 'W')) {
@@ -59,8 +59,8 @@ sub move {
 		$ew = $ball->direction->[0] = 'W';
 	}
 
-	$y = $ball->position->[1] += $v if $ns eq 'N';
-	$y = $ball->position->[1] -= $v if $ns eq 'S';
+	$y = $ball->position->[1] -= $v if $ns eq 'N';
+	$y = $ball->position->[1] += $v if $ns eq 'S';
 	$x = $ball->position->[0] += $v if $ew eq 'E';
 	$x = $ball->position->[0] -= $v if $ew eq 'W';
 }
@@ -70,9 +70,9 @@ sub draw {
 
 	my ($x, $y) = map round, @{ $ball->position };
 	my ($w, $h) = @{ $ball->size };
+	my ($gw, $gh) = @{ $game->size };
 
-	$win->addstr($y, $x * 1, "*" x ($w * 1));
-	$win->refresh;
+	$win->addstr($gh - $y, $x, "o");
 }
 
 1;

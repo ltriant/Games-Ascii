@@ -26,8 +26,8 @@ has input => (
 	isa => Maybe[InputComponent]
 );
 
-sub move { }
-sub draw { }
+sub move { }  # implemented in derived classes
+sub draw { }  # implemented in derived classes
 
 sub receive {
 	my ($self, $game, $message) = @_;
@@ -40,7 +40,7 @@ sub receive {
 sub update {
 	my ($self, $game, $object, $win) = @_;
 
-	$self->clear($object, $win);
+	$self->clear($game, $object, $win);
 	$self->move($game, $object, $win);
 	$self->draw($game, $object, $win);
 }

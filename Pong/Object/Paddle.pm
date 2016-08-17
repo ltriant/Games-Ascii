@@ -35,9 +35,9 @@ sub draw {
 
 	my ($x, $y) = map round, @{ $paddle->position };
 	my ($w, $h) = @{ $paddle->size };
+	my ($gw, $gh) = @{ $game->size };
 
-	$win->addstr($y, $x * 1, "=" x ($w * 1));
-	$win->refresh;
+	$win->hline($gh - $y, $x, '-', $w);
 };
 
 1;
