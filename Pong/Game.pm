@@ -46,6 +46,7 @@ sub reset_players {
 
 sub reset_ball {
 	my ($self) = @_;
+	$self->ball->velocity(0.05);
 	$self->ball->position( [ 2, 7 ] );
 	$self->ball->direction( [ qw(W N) ] );
 }
@@ -54,7 +55,6 @@ sub reset {
 	my ($self) = @_;
 	$self->scores->{ $self->player1 } = 0;
 	$self->scores->{ $self->player2 } = 0;
-	$self->ball->velocity(0.05);
 }
 
 sub on_notify {
