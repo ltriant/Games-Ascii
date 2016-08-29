@@ -12,7 +12,9 @@ sub clear {
 	my ($w, $h) = @{ $object->size };
 	my ($gw, $gh) = @{ $game->size };
 
-	$win->hline($gh - $y, $x, ' ', $w);
+	for (0 .. $h - 1) {
+		$win->hline($gh - $y + $_, $x, ' ', $w);
+	}
 }
 
 1;
