@@ -28,7 +28,7 @@ sub BUILD {
 	$self->init;
 	$self->ball->push_observer(\&on_notify, $self);
 	$self->_objects( [ $self->player1, $self->player2, $self->ball ] );
-	$self->reset;
+	$self->new_game;
 }
 
 sub init {
@@ -51,7 +51,7 @@ sub reset_ball {
 	$self->ball->direction( [ qw(W N) ] );
 }
 
-sub reset {
+sub new_game {
 	my ($self) = @_;
 	$self->scores->{ $self->player1 } = 0;
 	$self->scores->{ $self->player2 } = 0;
