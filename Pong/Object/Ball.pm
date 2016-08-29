@@ -22,9 +22,9 @@ sub move {
 		my ($sz_x, $sz_y) = @{ $obj->size };
 
 		if (    ($nx >= $ox)
-			and ($nx <= $ox + $sz_x)
+			and ($nx <= ($ox + $sz_x))
 			and ($ny >= $oy)
-			and ($ny <= $oy + $sz_y)
+			and ($ny <= ($oy + $sz_y))
 		) {
 #			printf "  Hitting a %s object!\n", ref $obj;
 #			printf "    ox, oy: %d, %d\n", $ox, $oy;
