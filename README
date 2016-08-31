@@ -1,7 +1,7 @@
-A curses-based Pong clone.
+A Pong clone.
 
 Mostly to experiment with design patterns for the game engine from the Game
-Programming Patterns book.
+Programming Patterns book. http://gameprogrammingpatterns.com/
 
 HOW TO PLAY
 -----------
@@ -14,7 +14,14 @@ Player 2:
   K -- left
   L -- right
 
-Q to quit.
+Ctrl-C to quit.
+
+TODO
+----
+
+* Abstract out receive_input()
+* Use SDL instead of Curses
+* NYTProf the whole thing
 
 LICENSE
 -------
