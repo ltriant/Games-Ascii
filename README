@@ -19,7 +19,6 @@ Ctrl-C to quit.
 TODO
 ----
 
-* Have separate X and Y velocities
 * Abstract out receive_input()
 * Use SDL instead of Curses
 * NYTProf the whole thing
