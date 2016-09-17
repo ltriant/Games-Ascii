@@ -12,7 +12,6 @@ sub move {
 	my ($self, $game, $ball) = @_;
 
 	my ($x, $y) = @{ $ball->position };
-	my ($ew, $ns) = @{ $ball->direction };
 	my ($vx, $vy) = @{ $ball->velocity };
 
 	my ($nx, $ny) = ($x + $vx, $y + $vy);
@@ -21,48 +20,45 @@ sub move {
 		my ($ox, $oy) = @{ $obj->position };
 		my ($sz_x, $sz_y) = @{ $obj->size };
 
+		# If the ball is about to move into the object's boundaries, it's a
+		# collision
 		if (    ($nx >= $ox)
 			and ($nx <= ($ox + $sz_x))
 			and ($ny >= $oy)
 			and ($ny <= ($oy + $sz_y))
 		) {
-#			printf "  Hitting a %s object!\n", ref $obj;
-#			printf "    ox, oy: %d, %d\n", $ox, $oy;
-#			printf "    sz_x, sz_y: %d, %d\n", $sz_x, $sz_y;
-#			printf "    Old direction: %s%s\n", $ns, $ew;
-
-			if ($ns eq 'N') {
-				$ns = $ball->direction->[1] = 'S';
-			}
-			elsif ($ns eq 'S') {
-				$ns = $ball->direction->[1] = 'N';
-			}
-
-#			printf "    New direction: %s%s\n", $ns, $ew;
+			$vy *= -1;
 		}
 	}
 
-	# Hitting a wall? Change direction.
-	if (($y <= 0) and ($ns eq 'N')) {
-		$ns = $ball->direction->[1] = 'S';
+	# If we're hitting the top, player 1 scored
+	if ($ny <= 0) {
+		#$vy *= -1;
 		$self->notify( { score => $game->player1 } );
+		return;
 	}
-	if (($y >= $game->size->[1]) and ($ns eq 'S')) {
-		$ns = $ball->direction->[1] = 'N';
+
+	# If we're hitting the bottom, player 2 scored
+	if ($ny >= $game->size->[1]) {
+		#$vy *= -1;
 		$self->notify( { score => $game->player2 } );
+		return;
 	}
 
-	if (($x <= 0) and ($ew eq 'W')) {
-		$ew = $ball->direction->[0] = 'E';
-	}
-	if (($x >= $game->size->[0]) and ($ew eq 'E')) {
-		$ew = $ball->direction->[0] = 'W';
+	# If we're hitting the left wall, bounce off
+	if ($nx <= 0) {
+		$vx *= -1;
 	}
 
-	$y = $ball->position->[1] -= $vy if $ns eq 'N';
-	$y = $ball->position->[1] += $vy if $ns eq 'S';
-	$x = $ball->position->[0] += $vx if $ew eq 'E';
-	$x = $ball->position->[0] -= $vx if $ew eq 'W';
+	# If we're hitting the right wall, bounce off
+	if ($nx >= $game->size->[0]) {
+		$vx *= -1;
+	}
+
+	$ball->position->[0] = $nx;
+	$ball->position->[1] = $ny;
+	$ball->velocity->[0] = $vx;
+	$ball->velocity->[1] = $vy;
 }
 
 sub draw {

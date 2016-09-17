@@ -5,7 +5,7 @@ use strict;
 
 use Type::Library -base;
 use Type::Utils -all;
-use Types::Standard qw/Tuple Int Enum Num StrMatch HashRef/;
+use Types::Standard qw/Tuple Int Num StrMatch HashRef/;
 
 declare 'KeyboardChar' =>
 	as StrMatch[ qr{^[a-zA-Z]$} ];
@@ -15,12 +15,6 @@ declare 'Position' =>
 
 declare 'Size' =>
 	as Tuple[Int, Int];
-
-declare 'Direction' =>
-	as Tuple[
-		Enum[qw(E W)],
-		Enum[qw(N S)]
-	];
 
 declare 'Velocity' =>
 	as Tuple[Num, Num];

@@ -40,15 +40,15 @@ sub init {
 
 sub reset_players {
 	my ($self) = @_;
-	$self->player1->position( [ 7, 8 ] );
+	$self->player1->position( [ 7, 9 ] );
 	$self->player2->position( [ 0, 1 ] );
 }
 
 sub reset_ball {
 	my ($self) = @_;
-	$self->ball->velocity( [ 0.05, 0.05 ] );
-	$self->ball->position( [ 2, 7 ] );
-	$self->ball->direction( [ qw(W N) ] );
+	$self->ball->velocity->[0] = 0.05;
+	$self->ball->velocity->[1] = 0.05;
+	$self->ball->position( [ 5, 5 ] );
 }
 
 sub new_game {
@@ -94,18 +94,15 @@ sub loop {
 	my ($self) = @_;
 
 	while (1) {
-#		print "Loop\n";
-
 		$self->broadcast( { input => $_ } ) for $self->receive_input;
 		$_->update($self, $_, $self->_window) for @{ $self->_objects };
 		$self->_window->addstr(
-			0, 0,
+			11, 0,
 			sprintf("Player 1: %d, Player 2: %d",
 				$self->scores->{ $self->player1 },
 				$self->scores->{ $self->player2 }
 			)
 		);
-		$self->_window->refresh;
 
 		$self->_window->addstr( 12, 0,
 			sprintf( "p1: %2.2f, %2.2f", @{ $self->player1->position } ) );
@@ -113,13 +110,14 @@ sub loop {
 			sprintf( "p2: %2.2f, %2.2f", @{ $self->player2->position } ) );
 		$self->_window->addstr(
 			14, 0,
-			sprintf( " b: %2.2f, %2.2f, %s%s",
+			sprintf( " b: %2.2f, %2.2f, v: %2.2f, %2.2f",
 				$self->ball->position->[0],
 				$self->ball->position->[1],
-				$self->ball->direction->[1],
-				$self->ball->direction->[0],
+				$self->ball->velocity->[0],
+				$self->ball->velocity->[1],
 			)
 		);
+		$self->_window->refresh;
 
 		usleep(10000);
 	}
