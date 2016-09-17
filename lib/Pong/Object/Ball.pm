@@ -68,7 +68,7 @@ sub draw {
 	my ($w, $h) = @{ $ball->size };
 	my ($gw, $gh) = @{ $game->size };
 
-	$win->addstr($gh - $y, $x, "o");
+	$win->addstr($y, $x, "o");
 }
 
 1;

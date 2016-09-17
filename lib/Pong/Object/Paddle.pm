@@ -37,7 +37,7 @@ sub draw {
 	my ($w, $h) = @{ $paddle->size };
 	my ($gw, $gh) = @{ $game->size };
 
-	$win->hline($gh - $y, $x, '-', $w);
+	$win->hline($y, $x, '-', $w);
 };
 
 1;
