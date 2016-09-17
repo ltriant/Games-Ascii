@@ -8,12 +8,14 @@ sub update {
 
 	#printf "    %s got input: %s\n", ref($paddle), $key;
 
+	my ($vx, $vy) = @{ $paddle->velocity };
+
 	if (uc $key eq $self->left) {
-		$paddle->velocity($paddle->velocity - 1);
+		$paddle->velocity->[0] = $vx - 1;
 	}
 
 	if (uc $key eq $self->right) {
-		$paddle->velocity($paddle->velocity + 1);
+		$paddle->velocity->[0] = $vx + 1;
 	}
 }
 

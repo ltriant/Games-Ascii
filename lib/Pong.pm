@@ -23,7 +23,7 @@ declare 'Direction' =>
 	];
 
 declare 'Velocity' =>
-	as Num;
+	as Tuple[Num, Num];
 
 declare 'Scoreboard' =>
 	as HashRef[Int];

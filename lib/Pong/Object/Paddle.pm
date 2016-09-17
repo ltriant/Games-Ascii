@@ -7,7 +7,7 @@ use Pong::Utils qw(round);
 
 # position is the left edge of the paddle
 has '+size'     => (default => sub { [ qw/3 1/ ] } );
-has '+velocity' => (default => sub { 0 } );
+has '+velocity' => (default => sub { [ qw/0 0/ ] } );
 
 sub move {
 	my ($self, $game, $paddle) = @_;
@@ -15,19 +15,19 @@ sub move {
 	my ($x, $y) = @{ $paddle->position };
 	my ($w, $h) = @{ $paddle->size };
 
-	my $v = $paddle->velocity;
+	my ($vx, undef) = @{ $paddle->velocity };
 
-	if ($x + $v < 0) {
+	if ($x + $vx < 0) {
 		$paddle->position->[0] = 0;
 	}
-	elsif ($x + $w + $v >= $game->size->[0]) {
+	elsif ($x + $w + $vx >= $game->size->[0]) {
 		$paddle->position->[0] = $game->size->[0] - $w;
 	}
 	else {
-		$paddle->position->[0] += $paddle->velocity;
+		$paddle->position->[0] += $vx;
 	}
 
-	$paddle->velocity(0);
+	$paddle->velocity->[0] = 0;
 }
 
 sub draw {

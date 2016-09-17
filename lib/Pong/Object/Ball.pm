@@ -13,9 +13,9 @@ sub move {
 
 	my ($x, $y) = @{ $ball->position };
 	my ($ew, $ns) = @{ $ball->direction };
-	my $v = $ball->velocity;
+	my ($vx, $vy) = @{ $ball->velocity };
 
-	my ($nx, $ny) = ($x + $v, $y + $v);
+	my ($nx, $ny) = ($x + $vx, $y + $vy);
 
 	foreach my $obj ($game->player1, $game->player2) {
 		my ($ox, $oy) = @{ $obj->position };
@@ -59,10 +59,10 @@ sub move {
 		$ew = $ball->direction->[0] = 'W';
 	}
 
-	$y = $ball->position->[1] -= $v if $ns eq 'N';
-	$y = $ball->position->[1] += $v if $ns eq 'S';
-	$x = $ball->position->[0] += $v if $ew eq 'E';
-	$x = $ball->position->[0] -= $v if $ew eq 'W';
+	$y = $ball->position->[1] -= $vy if $ns eq 'N';
+	$y = $ball->position->[1] += $vy if $ns eq 'S';
+	$x = $ball->position->[0] += $vx if $ew eq 'E';
+	$x = $ball->position->[0] -= $vx if $ew eq 'W';
 }
 
 sub draw {
