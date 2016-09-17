@@ -16,6 +16,8 @@ sub move {
 
 	my ($nx, $ny) = ($x + $vx, $y + $vy);
 
+	my @messages;
+
 	foreach my $obj ($game->player1, $game->player2) {
 		my ($ox, $oy) = @{ $obj->position };
 		my ($sz_x, $sz_y) = @{ $obj->size };
@@ -33,16 +35,14 @@ sub move {
 
 	# If we're hitting the top, player 1 scored
 	if ($ny <= 0) {
-		#$vy *= -1;
-		$self->notify( { score => $game->player1 } );
-		return;
+		$vy *= -1;
+		push @messages => { score => $game->player1 };
 	}
 
 	# If we're hitting the bottom, player 2 scored
 	if ($ny >= $game->size->[1]) {
-		#$vy *= -1;
-		$self->notify( { score => $game->player2 } );
-		return;
+		$vy *= -1;
+		push @messages => { score => $game->player2 };
 	}
 
 	# If we're hitting the left wall, bounce off
@@ -59,6 +59,8 @@ sub move {
 	$ball->position->[1] = $ny;
 	$ball->velocity->[0] = $vx;
 	$ball->velocity->[1] = $vy;
+
+	$self->notify($_) for @messages;
 }
 
 sub draw {
