@@ -19,6 +19,9 @@ Ctrl-C to quit.
 TODO
 ----
 
+* Player 2 AI - easy/medium/hard
+* Popup message when someone scores
+* Game menu
 * Abstract out receive_input()
 * Use SDL instead of Curses
 * NYTProf the whole thing
