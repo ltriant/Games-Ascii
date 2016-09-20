@@ -6,8 +6,7 @@ extends 'Pong::Object';
 use Pong::Utils qw(round);
 
 # position is the left edge of the paddle
-has '+size'     => (default => sub { [ qw/3 1/ ] } );
-has '+velocity' => (default => sub { [ qw/0 0/ ] } );
+has '+size' => (default => sub { [ qw/3 1/ ] });
 
 sub move {
 	my ($self, $game, $paddle) = @_;
