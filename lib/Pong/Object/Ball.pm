@@ -3,10 +3,14 @@ package Pong::Object::Ball;
 use Moo;
 use Pong::Utils qw(round);
 
+use Const::Fast;
+
 extends 'Pong::Object';
 with 'Pong::Component::Observable';
 
-has '+size' => (default => sub { [ qw/1 1/ ] } );
+has '+size' => (default => sub { [ qw/1 1/ ] });
+
+const my $MAX_VELOCITY => 1.00;
 
 sub move {
 	my ($self, $game, $ball) = @_;
@@ -33,26 +37,34 @@ sub move {
 		}
 	}
 
-	# If we're hitting the top, player 1 scored
 	if ($ny <= 0) {
+		# If we're hitting the top, player 1 scored
 		$vy *= -1;
 		push @messages => { score => $game->player1 };
 	}
-
-	# If we're hitting the bottom, player 2 scored
-	if ($ny >= $game->size->[1]) {
+	elsif ($ny >= $game->size->[1]) {
+		# If we're hitting the bottom, player 2 scored
 		$vy *= -1;
 		push @messages => { score => $game->player2 };
 	}
 
-	# If we're hitting the left wall, bounce off
 	if ($nx <= 0) {
+		# If we're hitting the left wall, bounce off
+		$vx *= -1;
+	}
+	elsif ($nx >= $game->size->[0]) {
+		# If we're hitting the right wall, bounce off
 		$vx *= -1;
 	}
 
-	# If we're hitting the right wall, bounce off
-	if ($nx >= $game->size->[0]) {
-		$vx *= -1;
+	# Cap the X-velocity
+	if (abs($vx) > $MAX_VELOCITY) {
+		if ($vx < 0) {
+			$vx = 0 - $MAX_VELOCITY;
+		}
+		else {
+			$vx = $MAX_VELOCITY;
+		}
 	}
 
 	$ball->position->[0] = $nx;
