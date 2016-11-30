@@ -19,11 +19,15 @@ Ctrl-C to quit.
 TODO
 ----
 
+* Proper ball physics
 * Player 2 AI - easy/medium/hard
+* Fix ball jitter on paddles
+* Color pls
+* Make it pretty
+* Quit key
 * Popup message when someone scores
-* Game menu
+* Game menu/intro screen
 * Abstract out receive_input()
-* Use SDL instead of Curses
 * NYTProf the whole thing
 
 LICENSE
