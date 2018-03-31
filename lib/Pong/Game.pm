@@ -14,7 +14,9 @@ has scores  => ( is => 'rw', isa => Scoreboard, default  => sub { {} } );
 
 sub BUILD {
 	my ($self) = @_;
-	$self->init;
+	$self->reset_players;
+	$self->reset_ball;
+	$self->_window->clear;
 	$self->ball->push_observer(\&on_notify, $self);
 
 	for ($self->player1, $self->player2, $self->ball) {
@@ -22,13 +24,6 @@ sub BUILD {
 	}
 
 	$self->new_game;
-}
-
-sub init {
-	my ($self) = @_;
-	$self->reset_players;
-	$self->reset_ball;
-	$self->_window->clear;
 }
 
 sub reset_players {
