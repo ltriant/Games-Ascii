@@ -1,16 +1,16 @@
-package Pong::Object;
+package Games::Ascii::Object;
 
 use Moo;
 use Types::Standard qw/Maybe/;
-use Pong qw(
+use Games::Ascii qw(
 	Position
 	Size
 	InputComponent
 );
 
 with qw(
-	Pong::Component::Physics
-	Pong::Component::Graphics
+	Games::Ascii::Component::Physics
+	Games::Ascii::Component::Graphics
 );
 
 has position => (

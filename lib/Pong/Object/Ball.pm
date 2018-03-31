@@ -1,12 +1,12 @@
 package Pong::Object::Ball;
 
 use Moo;
-use Pong::Utils qw(round);
+use Games::Ascii::Utils qw(round);
 
 use Const::Fast;
 
-extends 'Pong::Object';
-with 'Pong::Component::Observable';
+extends 'Games::Ascii::Object';
+with 'Games::Ascii::Component::Observable';
 
 has '+size' => (default => sub { [ qw/1 1/ ] });
 

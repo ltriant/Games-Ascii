@@ -1,9 +1,9 @@
 package Pong::Object::Paddle;
 
 use Moo;
-extends 'Pong::Object';
+extends 'Games::Ascii::Object';
 
-use Pong::Utils qw(round);
+use Games::Ascii::Utils qw(round);
 
 # position is the left edge of the paddle
 has '+size' => (default => sub { [ qw/3 1/ ] });

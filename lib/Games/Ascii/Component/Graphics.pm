@@ -1,7 +1,7 @@
-package Pong::Component::Graphics;
+package Games::Ascii::Component::Graphics;
 
 use Moo::Role;
-use Pong::Utils qw(round);
+use Games::Ascii::Utils qw(round);
 
 requires 'draw';
 

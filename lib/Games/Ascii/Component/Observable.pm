@@ -1,4 +1,4 @@
-package Pong::Component::Observable;
+package Games::Ascii::Component::Observable;
 
 use Moo::Role;
 use Types::Standard qw/ArrayRef Any/;

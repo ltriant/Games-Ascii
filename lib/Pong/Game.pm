@@ -1,13 +1,10 @@
 package Pong::Game;
 
 use Moo;
-use Types::Standard qw/ArrayRef/;
-use Pong qw/Paddle Ball Size Object Scoreboard/;
+use Games::Ascii qw/Size/;
+use Pong qw/Paddle Ball Scoreboard/;
 
-use Const::Fast;
-use Curses;
-use Term::ReadKey;
-use Time::HiRes qw/usleep/;
+with 'Games::Ascii::Loop';
 
 has player1 => ( is => 'ro', isa => Paddle,     required => 1 );
 has player2 => ( is => 'ro', isa => Paddle,     required => 1 );
@@ -15,19 +12,15 @@ has ball    => ( is => 'ro', isa => Ball,       required => 1 );
 has size    => ( is => 'ro', isa => Size,       required => 1 );
 has scores  => ( is => 'rw', isa => Scoreboard, default  => sub { {} } );
 
-has _objects => ( is => 'rw', isa => ArrayRef[Object] );
-has _window => (
-	is      => 'ro',
-	default => sub { Curses->new }
-);
-
-const my $INPUT_BUFFER_MAX => 10;
-
 sub BUILD {
 	my ($self) = @_;
 	$self->init;
 	$self->ball->push_observer(\&on_notify, $self);
-	$self->_objects( [ $self->player1, $self->player2, $self->ball ] );
+
+	for ($self->player1, $self->player2, $self->ball) {
+		$self->push_object($_);
+	}
+
 	$self->new_game;
 }
 
@@ -67,60 +60,29 @@ sub on_notify {
 	}
 }
 
-# TODO Should this be in its own class?
-# Event queue?
-sub receive_input {
+sub tick {
 	my ($self) = @_;
 
-	my @buffer;
-	ReadMode 'cbreak';
-
-	while ((@buffer < $INPUT_BUFFER_MAX) and (my $key = ReadKey -1)) {
-		push @buffer => $key
-	}
-
-	ReadMode 'restore';
-
-	# TODO run-length encode?
-	@buffer
-}
-
-sub broadcast {
-	my ($self, $message) = @_;
-	$_->receive($self, $message) for @{ $self->_objects };
-}
-
-sub loop {
-	my ($self) = @_;
-
-	while (1) {
-		$self->broadcast( { input => $_ } ) for $self->receive_input;
-		$_->update($self, $_, $self->_window) for @{ $self->_objects };
-		$self->_window->addstr(
-			11, 0,
-			sprintf("Player 1: %d, Player 2: %d",
-				$self->scores->{ $self->player1 },
-				$self->scores->{ $self->player2 }
-			)
-		);
-
-		$self->_window->addstr( 12, 0,
-			sprintf( "p1: %2.2f, %2.2f", @{ $self->player1->position } ) );
-		$self->_window->addstr( 13, 0,
-			sprintf( "p2: %2.2f, %2.2f", @{ $self->player2->position } ) );
-		$self->_window->addstr(
-			14, 0,
-			sprintf( " b: %2.2f, %2.2f, v: %2.2f, %2.2f",
-				$self->ball->position->[0],
-				$self->ball->position->[1],
-				$self->ball->velocity->[0],
-				$self->ball->velocity->[1],
-			)
-		);
-		$self->_window->refresh;
-
-		usleep(10000);
-	}
+	$self->_window->addstr(
+		11, 0,
+		sprintf("Player 1: %d, Player 2: %d",
+			$self->scores->{ $self->player1 },
+			$self->scores->{ $self->player2 }
+		)
+	);
+	$self->_window->addstr( 12, 0,
+		sprintf( "p1: %2.2f, %2.2f", @{ $self->player1->position } ) );
+	$self->_window->addstr( 13, 0,
+		sprintf( "p2: %2.2f, %2.2f", @{ $self->player2->position } ) );
+	$self->_window->addstr(
+		14, 0,
+		sprintf( " b: %2.2f, %2.2f, v: %2.2f, %2.2f",
+			$self->ball->position->[0],
+			$self->ball->position->[1],
+			$self->ball->velocity->[0],
+			$self->ball->velocity->[1],
+		)
+	);
 }
 
 1;

@@ -1,7 +1,7 @@
-package Pong::Component::Physics;
+package Games::Ascii::Component::Physics;
 
 use Moo::Role;
-use Pong qw(
+use Games::Ascii qw(
 	Velocity
 );
 

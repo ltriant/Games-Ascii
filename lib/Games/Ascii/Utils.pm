@@ -1,4 +1,4 @@
-package Pong::Utils;
+package Games::Ascii::Utils;
 
 use warnings;
 use strict;
