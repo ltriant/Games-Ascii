@@ -1,10 +1,13 @@
-A small ASCII game engine, and a Pong clone that uses the engine.
+# Games::Ascii
 
-Mostly to experiment with design patterns for the game engine from the
-excellent [Game Programming Patterns](http://gameprogrammingpatterns.com/)
-book.
+A small game engine for building ASCII-based games.
 
-# How To Play
+This was written to experiment with design patterns from the excellent
+[Game Programming Patterns](http://gameprogrammingpatterns.com/) book.
+
+# Pong
+
+## How To Play
 
 Player 1:
 * A -- left
@@ -16,18 +19,25 @@ Player 2:
 
 Ctrl-C to quit.
 
-# To Do
+## To Do
 
 * Proper ball physics
 * Player 2 AI - easy/medium/hard
 * Fix ball jitter on paddles
-* Color pls
-* Make it pretty
+* Make it colorful and pretty
 * Quit key
 * Popup message when someone scores
 * Game menu/intro screen
 * Abstract out receive\_input()
 * NYTProf the whole thing
+
+# Roguelike
+
+Doesn't really do anything yet other than move the player around.
+
+HJKL to move around.
+
+Ctrl-C to quit.
 
 # License
 
