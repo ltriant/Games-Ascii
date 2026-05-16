@@ -1,7 +1,10 @@
 package Games::Ascii::Object;
 
+use v5.42;
+use feature 'signatures';
+
 use Moo;
-use Types::Standard qw/Maybe/;
+use Types::Standard qw(Maybe);
 use Games::Ascii qw(
 	Position
 	Size
@@ -29,18 +32,13 @@ has input => (
 sub move { }  # implemented in derived classes
 sub draw { }  # implemented in derived classes
 
-sub receive {
-	my ($self, $game, $message) = @_;
-
+sub receive($self, $game, $message) {
 	if (exists $message->{input} and $self->input) {
 		$self->input->update($game, $self, $message->{input});
 	}
 }
 
-sub update {
-	my ($self, $game, $object, $win) = @_;
-
-	$self->clear($game, $object, $win);
+sub update($self, $game, $object, $win) {
 	$self->move($game, $object, $win);
 	$self->draw($game, $object, $win);
 }

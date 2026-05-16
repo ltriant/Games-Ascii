@@ -1,12 +1,13 @@
 package Games::Ascii::Component::Input::Keyboard;
 
+use v5.42;
+use feature 'signatures';
+
 use Moo;
 extends 'Games::Ascii::Component::Input';
 
-sub update {
-	my ($self, $game, $object, $key) = @_;
-
-	#printf "    %s got input: %s\n", ref($object), $key;
+sub update($self, $game, $object, $key) {
+  #printf "    %s got input: %s\n", ref($object), $key;
 
 	my ($vx, $vy) = @{ $object->velocity };
 
@@ -25,6 +26,10 @@ sub update {
 	if ($self->down and (uc $key eq $self->down)) {
 		$object->velocity->[1] = $vy + 1;
 	}
+
+  if ($self->quit and (uc $key eq $self->quit)) {
+    $game->notify({ quit => 1 });
+  }
 }
 
 1;

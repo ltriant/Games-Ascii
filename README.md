@@ -33,17 +33,17 @@ Ctrl-C to quit.
 
 # Roguelike
 
-Doesn't really do anything yet other than move the player around.
+Procedural dungeon generation, and the ability to move around in the dungeon, but that's it.
 
 HJKL to move around.
 
-Ctrl-C to quit.
+Q to quit.
 
 # License
 
 MIT License
 
-Copyright (c) 2018 Luke Triantafyllidis
+Copyright (c) 2026 Luke Triantafyllidis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

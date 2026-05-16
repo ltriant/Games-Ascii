@@ -9,6 +9,7 @@ has left  => (is => 'ro', isa => Maybe[KeyboardChar]);
 has right => (is => 'ro', isa => Maybe[KeyboardChar]);
 has up    => (is => 'ro', isa => Maybe[KeyboardChar]);
 has down  => (is => 'ro', isa => Maybe[KeyboardChar]);
+has quit  => (is => 'ro', isa => Maybe[KeyboardChar]);
 
 sub update { }
 

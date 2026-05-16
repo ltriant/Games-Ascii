@@ -10,8 +10,14 @@ use Types::Standard qw/Tuple Int Num StrMatch/;
 class_type 'InputComponent' =>
 	{ class => 'Games::Ascii::Component::Input' };
 
+class_type 'GraphicsComponent' =>
+	{ class => 'Games::Ascii::Component::Graphics' };
+
 class_type 'Object' =>
 	{ class => 'Games::Ascii::Object' };
+
+class_type 'Viewport' =>
+	{ class => 'Games::Ascii::Viewport' };
 
 declare 'KeyboardChar' =>
 	as StrMatch[ qr{^[a-zA-Z]$} ];

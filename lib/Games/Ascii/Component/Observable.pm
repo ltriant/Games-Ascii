@@ -1,5 +1,8 @@
 package Games::Ascii::Component::Observable;
 
+use v5.42;
+use feature 'signatures';
+
 use Moo::Role;
 use Types::Standard qw/ArrayRef Any/;
 
@@ -9,17 +12,13 @@ has observers => (
 	default => sub { [] }
 );
 
-sub push_observer {
-	my ($self, $fun, @params) = @_;
-
+sub push_observer($self, $fun, @params) {
 	unless (grep { $_->[0] eq $fun } @{ $self->observers }) {
 		push @{ $self->observers } => [ $fun, @params ];
 	}
 }
 
-sub notify {
-	my ($self, $message) = @_;
-
+sub notify($self, $message) {
 	foreach my $observer (@{ $self->observers }) {
 		my ($fun, @params) = @$observer;
 		$fun->(@params, $message);
